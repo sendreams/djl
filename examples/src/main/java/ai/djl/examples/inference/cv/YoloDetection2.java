@@ -23,7 +23,6 @@ import ai.djl.repository.zoo.Criteria;
 import ai.djl.repository.zoo.ZooModel;
 import ai.djl.training.util.ProgressBar;
 import ai.djl.translate.TranslateException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,19 +33,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /** An example of inference using an yolov8 model. */
-public final class YoloDetection {
+public final class YoloDetection2 {
 
-    private static final Logger logger = LoggerFactory.getLogger(YoloDetection.class);
+    private static final Logger logger = LoggerFactory.getLogger(YoloDetection2.class);
 
-    private YoloDetection() {}
+    private YoloDetection2() {}
 
     public static void main(String[] args) throws IOException, ModelException, TranslateException {
         DetectedObjects detection = predict();
         logger.info("{}", detection);
     }
 
+    private static final String MODEL_PATH = "C:\\Users\\Administrator\\PycharmProjects\\pytest-split\\runs\\detect\\train9\\weights\\best.onnx";
+
     public static DetectedObjects predict() throws IOException, ModelException, TranslateException {
-        Path imgPath = Paths.get("examples/src/test/resources/yolov8_test.jpg");
+        Path imgPath = Paths.get("examples/src/test/resources/井盖1.jpg");
         Image img = ImageFactory.getInstance().fromFile(imgPath);
 
         // Use DJL OnnxRuntime model zoo model, model can be found:
@@ -54,7 +55,7 @@ public final class YoloDetection {
         Criteria<Path, DetectedObjects> criteria =
                 Criteria.builder()
                         .setTypes(Path.class, DetectedObjects.class)
-                        .optModelUrls("djl://ai.djl.onnxruntime/yolo11n")
+                        .optModelPath(Paths.get(MODEL_PATH))
                         .optEngine("OnnxRuntime")
                         .optArgument("width", 640)
                         .optArgument("height", 640)

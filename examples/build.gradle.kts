@@ -15,7 +15,10 @@ dependencies {
     runtimeOnly(project(":engines:pytorch:pytorch-model-zoo"))
     runtimeOnly(project(":engines:tensorflow:tensorflow-model-zoo"))
     runtimeOnly(project(":engines:mxnet:mxnet-model-zoo"))
-    runtimeOnly(project(":engines:onnxruntime:onnxruntime-engine"))
+    runtimeOnly(project(":engines:onnxruntime:onnxruntime-engine")){
+        exclude("com.microsoft.onnxruntime","onnxruntime")
+    }
+    runtimeOnly("com.microsoft.onnxruntime:onnxruntime_gpu:${libs.versions.onnxruntime.get()}")
     runtimeOnly("com.microsoft.onnxruntime:onnxruntime-extensions:${libs.versions.onnxruntimeExtensions.get()}")
 
     testImplementation(libs.testng)
